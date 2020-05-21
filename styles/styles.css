@@ -53,13 +53,15 @@ body{
   width:100%;
   margin:0px;
   font-family:'rainyhearts';
+  margin-top:80px;
 }
 .centered-love-background p{
   margin:0px;
   font-size:18px;
   width:240px;
   line-height: 14px;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom:50px;
 }
 .centered-love-background a{
   font-size: 36px;
@@ -73,6 +75,7 @@ body{
   }
   .centered-love-background h1{
     font-size:36px;
+    margin-top:50px;
   }
   .centered-love-background a{
     font-size:20px;
@@ -82,5 +85,6 @@ body{
     width:150px;
     line-height: 12px;
     margin-top: 5px;
+    margin-bottom:20px;
   }
 }

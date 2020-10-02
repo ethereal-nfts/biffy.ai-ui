@@ -50,9 +50,10 @@ body{
   background-color:#510c7e;
   border: solid 30px #fb8cb9;
   width:70vw;
-  min-height:80vh;
+  height:70vh;
   padding:20px;
   text-align: center;
+  overflow-y:auto;
 }
 section{
   display:flex;

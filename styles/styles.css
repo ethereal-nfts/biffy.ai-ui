@@ -19,13 +19,11 @@ body{
   width: 100vw;
   color:#fff;
   font-family:'pixelade';
+  margin:0px;
 }
 
-.centered-love-background{
-  background-image: url("/images/biffy-love-new.png");
-  max-height:750px;
-  max-width:750px;
-  height:100vw;
+.centered-background{
+  height:100vh;
   width:100vw;
   margin-left:auto;
   margin-right:auto;
@@ -39,7 +37,24 @@ body{
   flex-wrap:wrap;
   background-position: center;
 }
-.centered-love-background section{
+.centered-background-love{
+  background-image: url("/images/biffy-love-new.png");
+  max-height:750px;
+  max-width:750px;
+}
+.centered-background-love p{
+  width:240px;
+}
+.background-rect{
+  max-width:690px;
+  background-color:#510c7e;
+  border: solid 30px #fb8cb9;
+  width:70vw;
+  min-height:80vh;
+  padding:20px;
+  text-align: center;
+}
+section{
   display:flex;
   justify-content: center;
   align-items: center;
@@ -48,43 +63,46 @@ body{
   position:relative;
   top:-10%;
 }
-.centered-love-background h1{
+h1{
   font-size: 48px;
   width:100%;
   margin:0px;
   font-family:'rainyhearts';
   margin-top:80px;
 }
-.centered-love-background p{
+p{
   margin:0px;
   font-size:18px;
-  width:240px;
+  width:100%;
   line-height: 14px;
   margin-top: 15px;
-  margin-bottom:50px;
+  margin-bottom:15px;
+
 }
-.centered-love-background a{
+a{
   font-size: 36px;
   display:block;
   color:#fff;
   width:100%;
 }
 @media only screen and (max-width: 480px) {
-  .centered-love-background section{
-    top:-8%;
+  section{
+    top:-5%;
   }
-  .centered-love-background h1{
+  h1{
     font-size:36px;
     margin-top:50px;
   }
-  .centered-love-background a{
+  a{
     font-size:20px;
   }
-  .centered-love-background p{
+  p{
     font-size:16px;
-    width:150px;
     line-height: 12px;
     margin-top: 5px;
     margin-bottom:20px;
+  }
+  .centered-background-love p{
+    width:150px;
   }
 }

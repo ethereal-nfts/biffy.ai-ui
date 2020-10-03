@@ -75,12 +75,20 @@ class EthersConnect{
     if(this.isEnabled && this.nextWalletUpdate < Date.now()) {
       this.nextWalletUpdate = Date.now() + 20*1000 //rate limit
       return Promise.all([
-        this.contractLove.balanceOf(this.account).then((bal)=>{
-          this.balanceLove = this.formatToEthString((bal),5)
+        Fetcher.fetchPairData(this.uniTokenLove, WETH[this.uniTokenLove.chainId]).then((pair)=>{
+          const route = new Route([pair], WETH[this.uniTokenLove.chainId])
+          this.priceEthLove = route.midPrice.invert().toSignificant(10)
+          return pair
+        }),
+        axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd').then((response)=>{
+          this.priceEthUsd = response.data.ethereum.usd
         }),
         this.contractLoveLP.balanceOf(this.account).then((bal)=>{
           this.weiBalanceLoveLP = bal
           this.balanceLoveLP = this.formatToEthString((bal),5)
+        }),
+        this.contractLove.balanceOf(this.account).then((bal)=>{
+          this.balanceLove = this.formatToEthString((bal),5)
         }),
         this.contractLoveFarm.balanceOf(this.account).then((bal)=>{
           this.balanceLoveFarm = this.formatToEthString((bal),5)
@@ -94,16 +102,14 @@ class EthersConnect{
         this.contractLoveFarm.rewardRate().then((bal)=>{
           this.loveFarmRewardRate = this.formatToEthString((bal.mul(BigNumber.from("86400"))),5)
         }),
-        Fetcher.fetchPairData(this.uniTokenLove, WETH[this.uniTokenLove.chainId]).then((pair)=>{
-          const route = new Route([pair], WETH[this.uniTokenLove.chainId])
-          this.priceEthLove = route.midPrice.invert().toSignificant(10)
-          console.log("love price",this.priceLove)
-        }),
-        axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd').then((response)=>{
-          this.priceEthUsd = response.data.ethereum.usd
+        this.contractLoveLP.totalSupply().then((bal)=>{
+          this.loveLPTotalSupplyWei = bal
+          this.loveLPTotalSupply = this.formatToEthString((bal),5)
         })
-
-      ])
+      ]).then((results)=>{
+        const pair = results[0]
+        this.priceLoveLPUsd = (pair.tokenAmounts[0].toSignificant(12)*2/this.loveLPTotalSupply)*this.priceEthUsd.toFixed(2)
+      })
     } else {
       return Promise.resolve()
     }

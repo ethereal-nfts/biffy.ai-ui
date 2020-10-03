@@ -100,9 +100,11 @@ function LoveFarm({ ethersConnect }) {
           }
           <h2>farm info</h2>
           <Container className="has-text-left" style={{fontFamily: 'monospace', width:"100%"}}>
-            <p style={{width:"100%"}}>Total sacrificed LOVE LP: {ethersConnect.loveFarmTotalSupply}</p>
-            <p style={{width:"100%"}}>Emission rate (LOVE/day): {ethersConnect.loveFarmRewardRate}</p>
+            <p style={{width:"100%"}}>LOVE LP: {ethersConnect.loveFarmTotalSupply}</p>
+            <p style={{width:"100%"}}>LOVE/Day: {ethersConnect.loveFarmRewardRate}</p>
             <p style={{width:"100%"}}>Love USD: {(Number(ethersConnect.priceEthLove)*Number(ethersConnect.priceEthUsd)).toFixed(2)}</p>
+            <p style={{width:"100%"}}>Total Value Locked: ${(Number(ethersConnect.loveFarmTotalSupply)*Number(ethersConnect.priceLoveLPUsd)).toFixed(2)}</p>
+            <p style={{width:"100%"}}>APY: {(Number(ethersConnect.priceEthLove)*Number(ethersConnect.priceEthUsd)*ethersConnect.loveFarmTotalSupply/(Number(ethersConnect.loveFarmTotalSupply)*Number(ethersConnect.priceLoveLPUsd))*100*365).toFixed(2)}%</p>
           </Container>
         </>
       }

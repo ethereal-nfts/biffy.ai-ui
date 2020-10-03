@@ -83,7 +83,7 @@ function LoveFarm({ ethersConnect }) {
               <p style={{width:"100%"}}>Balance Love Farm: {ethersConnect.balanceLoveFarm}
                 {
                   (Number(ethersConnect.loveFarmTotalSupply)>0) ?
-                  " ("+((Number(ethersConnect.balanceLoveFarm)/(Number(ethersConnect.loveFarmTotalSupply))).toFixed(3)) + "%)"
+                  " ("+((Number(ethersConnect.balanceLoveFarm)/(Number(ethersConnect.loveFarmTotalSupply))*100).toFixed(3)) + "%)"
                  :
                 "0%"
                  }

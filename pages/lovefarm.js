@@ -20,7 +20,6 @@ function handleStake(ethersConnect){
   let signer = ethersConnect.provider.getSigner()
   let contract = ethersConnect.contractLoveFarm
   let contractWithSigner = contract.connect(signer)
-  console.log(ethersConnect.weiBalanceLoveLP.toString())
   contractWithSigner.stake(ethersConnect.weiBalanceLoveLP.toString())
 }
 
@@ -68,7 +67,7 @@ function LoveFarm({ ethersConnect }) {
              {(secondsToLaunch <= 0) && <>
                <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleStake(ethersConnect)}}>Stake</Button>
                <p>available: {ethersConnect.balanceLoveLP} Love/Eth Uni LP</p> <br/>
-               <Button style={{display:"block", margin:"auto"}}>Claim</Button>
+               <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleClaim(ethersConnect)}}>Claim</Button>
                <p>available: {ethersConnect.balanceLoveFarmEarned} Love</p> <br/>
               </>}
           </Container>

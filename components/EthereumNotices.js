@@ -1,6 +1,5 @@
 import React, {useState } from 'react'
 import {Container, Message, MessageHeader, MessageBody, Delete, Button} from 'bloomer'
-
 function EthereumNotices({ethersConnect}){
   const [isDisplayChangelly,setIsDisplayChangelly] = useState(false)
 

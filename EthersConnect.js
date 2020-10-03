@@ -1,4 +1,7 @@
 import {ethers, utils, BigNumber} from 'ethers'
+const axios = require('axios');
+import { ChainId, Token, WETH, Fetcher, Route } from '@uniswap/sdk'
+
 import abiBiffysLove from './abi/BiffysLove.abi'
 import abiBiffysLoveFarm from './abi/BiffysLoveFarm.abi'
 import abiIERC20 from './abi/IERC20.abi'
@@ -27,6 +30,8 @@ class EthersConnect{
     this.loadWeb3.bind = this.loadWeb3.bind(this)
     this.reloadEthersConnect.bind = this.reloadEthersConnect.bind(this)
     this.loadWalletInfo.bind = this.loadWalletInfo.bind(this)
+
+    this.uniTokenLove = new Token(ChainId.MAINNET, this.addressLove, 18)
   }
 
   reloadEthersConnect(){
@@ -88,7 +93,16 @@ class EthersConnect{
         }),
         this.contractLoveFarm.rewardRate().then((bal)=>{
           this.loveFarmRewardRate = this.formatToEthString((bal.mul(BigNumber.from("86400"))),5)
+        }),
+        Fetcher.fetchPairData(this.uniTokenLove, WETH[this.uniTokenLove.chainId]).then((pair)=>{
+          const route = new Route([pair], WETH[this.uniTokenLove.chainId])
+          this.priceEthLove = route.midPrice.invert().toSignificant(10)
+          console.log("love price",this.priceLove)
+        }),
+        axios.get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd').then((response)=>{
+          this.priceEthUsd = response.data.ethereum.usd
         })
+
       ])
     } else {
       return Promise.resolve()

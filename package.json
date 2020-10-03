@@ -5,6 +5,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@uniswap/sdk": "^3.0.3",
+    "axios": "^0.20.0",
     "bloomer": "^0.6.5",
     "ethers": "^5.0.14",
     "next": "^9.5.3",

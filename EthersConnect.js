@@ -1,4 +1,4 @@
-import {ethers, utils} from 'ethers'
+import {ethers, utils, BigNumber} from 'ethers'
 import abiBiffysLove from './abi/BiffysLove.abi'
 import abiBiffysLoveFarm from './abi/BiffysLoveFarm.abi'
 import abiIERC20 from './abi/IERC20.abi'
@@ -68,7 +68,7 @@ class EthersConnect{
   loadWalletInfo(){
     if(!this.nextWalletUpdate) this.nextWalletUpdate = Date.now() - 1
     if(this.isEnabled && this.nextWalletUpdate < Date.now()) {
-      this.nextWalletUpdate = Date.now() + 60*1000 //rate limit
+      this.nextWalletUpdate = Date.now() + 20*1000 //rate limit
       return Promise.all([
         this.contractLove.balanceOf(this.account).then((bal)=>{
           this.balanceLove = this.formatToEthString((bal),5)
@@ -83,6 +83,12 @@ class EthersConnect{
         this.contractLoveFarm.earned(this.account).then((bal)=>{
           this.balanceLoveFarmEarned = this.formatToEthString((bal),5)
         }),
+        this.contractLoveFarm.totalSupply().then((bal)=>{
+          this.loveFarmTotalSupply = this.formatToEthString((bal),5)
+        }),
+        this.contractLoveFarm.rewardRate().then((bal)=>{
+          this.loveFarmRewardRate = this.formatToEthString((bal.mul(BigNumber.from("86400"))),5)
+        })
       ])
     } else {
       return Promise.resolve()

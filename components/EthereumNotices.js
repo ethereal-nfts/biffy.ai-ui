@@ -49,15 +49,6 @@ function EthereumNotices({ethersConnect}){
         </Message>
       </Container>
     }
-    {ethersConnect.isEnabled &&
-      <Container className="has-text-left" style={{fontFamily: 'monospace', width:"100%"}}>
-        <p style={{width:"100%", overflow:"hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>Account: {ethersConnect.account}</p>
-        <p style={{width:"100%"}}>Network: {ethersConnect.network} {ethersConnect.network === ethersConnect.expectedNetwork ? '✓' : '✗'}</p>
-        <p style={{width:"100%"}}>Balance ETH: {ethersConnect.balance}</p>
-        <p style={{width:"100%"}}>Balance LOVE: {ethersConnect.balanceLove}</p>
-        <p style={{width:"100%"}}>Balance LOVE LP: {ethersConnect.balanceLoveLP}</p>
-        <p style={{width:"100%"}}>Balance Love Farm: {ethersConnect.balanceLoveFarm}</p></Container>
-    }
     </Container>
   )
 }

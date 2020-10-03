@@ -26,8 +26,8 @@ function EthereumNotices({ethersConnect}){
           <MessageBody>
             On desktop, try <a href='https://metamask.io'>MetaMask</a>. <br/>
             On mobile, try <a href='https://cipherbrowser.com'>CipherBrowser</a>. <br/>
-            MetaGlitch will still update without an Ethereum Wallet, but you
-            will not be able to breed Glitches.
+            Biffy.ai will still update without an Ethereum Wallet, but you
+            will not be able to join the Love Farm.
           </MessageBody>
         </Message>
       </Container>

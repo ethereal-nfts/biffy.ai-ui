@@ -55,21 +55,25 @@ body{
   text-align: center;
   overflow-y:auto;
 }
+.centered-background-love section{
+  position:relative;
+  top:-10%;
+}
 section{
   display:flex;
   justify-content: center;
   align-items: center;
   flex-direction:row;
   flex-wrap:wrap;
-  position:relative;
-  top:-10%;
+}
+.centered-background-love h1{
+  margin-top:80px;
 }
 h1{
   font-size: 48px;
   width:100%;
   margin:0px;
   font-family:'rainyhearts';
-  margin-top:80px;
 }
 p{
   margin:0px;
@@ -87,7 +91,7 @@ a{
   width:100%;
 }
 @media only screen and (max-width: 480px) {
-  section{
+  .centered-background-love section{
     top:-5%;
   }
   h1{

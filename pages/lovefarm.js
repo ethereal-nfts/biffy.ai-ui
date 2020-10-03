@@ -48,10 +48,10 @@ function LoveFarm({ ethersConnect }) {
   },[])
   return(
     <div className="background-rect">
-      <Link href="/">
-        <a>Go Home</a>
-      </Link>
       <section>
+        <Link href="/">
+          <a>Go Home</a>
+        </Link>
         <h1>Biffy's<br/>Love Farm</h1>
         <p>Stake LP, earn Love forever.</p>
       </section>

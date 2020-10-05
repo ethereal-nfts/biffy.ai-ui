@@ -96,6 +96,10 @@ class EthersConnect{
         this.contractLoveFarm.rewardRate().then((bal)=>{
           this.loveFarmRewardRate = this.formatToEthString((bal.mul(BigNumber.from("86400"))),5)
         }),
+        this.contractLoveLP.totalSupply().then((bal)=>{
+          this.loveLPTotalSupplyWei = bal
+          this.loveLPTotalSupply = this.formatToEthString((bal),5)
+        }),
         this.contractLoveLP.allowance(this.account, this.addressLoveFarm),
       ]).then((results)=>{
         const pair = results[0]

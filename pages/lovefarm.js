@@ -61,15 +61,19 @@ function LoveFarm({ ethersConnect }) {
       {ethersConnect &&
         <>
           <Container style={{width:"100%", textAlign:"center"}}>
-             <br/><br/>
-             <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleApprove(ethersConnect)}}>Approve</Button>
-             <p>Call Approve once before staking.</p> <br/>
-             {(secondsToLaunch <= 0) && <>
-               <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleStake(ethersConnect)}}>Stake</Button>
-               <p>available: {ethersConnect.balanceLoveLP} Love/Eth Uni LP</p> <br/>
-               <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleClaim(ethersConnect)}}>Claim</Button>
-               <p>available: {ethersConnect.balanceLoveFarmEarned} Love</p> <br/>
-              </>}
+              {!ethersConnect.tokenApproved &&
+              <>
+                <br/><br/>
+                <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleApprove(ethersConnect)}}>Approve</Button>
+                <p>Call Approve once before staking.</p> <br/>
+              </>
+              }
+              {(secondsToLaunch <= 0) && <>
+                <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleStake(ethersConnect)}}>Stake</Button>
+                <p>available: {ethersConnect.balanceLoveLP} Love/Eth Uni LP</p> <br/>
+                <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleClaim(ethersConnect)}}>Claim</Button>
+                <p>available: {ethersConnect.balanceLoveFarmEarned} Love</p> <br/>
+                </>}
           </Container>
           <h2>wallet info</h2>
           <EthereumNotices ethersConnect={ethersConnect} />

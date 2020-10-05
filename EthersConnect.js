@@ -16,6 +16,7 @@ class EthersConnect{
     this.provider = new ethers.getDefaultProvider(config.network, {
       alchemy: "XsyJ2okDidZxhw_iW4azBVEqv5ja8QR0"
     })
+    this.tokenApproved = null;
 
     this.addressLove = config.addressLove
     this.contractLove = new ethers.Contract(config.addressLove,abiBiffysLove,this.provider)
@@ -95,13 +96,13 @@ class EthersConnect{
         this.contractLoveFarm.rewardRate().then((bal)=>{
           this.loveFarmRewardRate = this.formatToEthString((bal.mul(BigNumber.from("86400"))),5)
         }),
-        this.contractLoveLP.totalSupply().then((bal)=>{
-          this.loveLPTotalSupplyWei = bal
-          this.loveLPTotalSupply = this.formatToEthString((bal),5)
-        })
+        this.contractLoveLP.allowance(this.account, this.addressLoveFarm),
       ]).then((results)=>{
         const pair = results[0]
         this.priceLoveLPUsd = (pair.tokenAmounts[0].toSignificant(12)*2/this.loveLPTotalSupply)*this.priceEthUsd.toFixed(2)
+        const allowance = results[8];
+        this.allowance = this.formatToEthString((allowance),5)
+        this.tokenApproved = this.formatToEthString((allowance),5) !== this.formatToEthString(0,5);
       })
     } else {
       return Promise.resolve()

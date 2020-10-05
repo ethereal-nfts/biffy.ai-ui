@@ -14,7 +14,9 @@ class EthersConnect{
     this.expectedNetwork = config.network
     this.network = config.network
     this.provider = new ethers.getDefaultProvider(config.network, {
-      alchemy: "XsyJ2okDidZxhw_iW4azBVEqv5ja8QR0"
+      alchemy: "XsyJ2okDidZxhw_iW4azBVEqv5ja8QR0",
+      etherscan: "NW15ZFMRMUHPPJW3KDKYGY7T6PIKICPZYH",
+      infura: "7306d5cb07f9488ca72e21d22079f93e"
     })
 
     this.addressLove = config.addressLove

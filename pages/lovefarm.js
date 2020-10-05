@@ -2,7 +2,19 @@ import Link from 'next/link'
 import EthereumNotices from "../components/EthereumNotices"
 import React, {useState, useEffect } from 'react'
 import {Button, Container} from 'bloomer'
+import styled from 'styled-components'
 
+
+const Stylebutton = styled.button`
+background:#26d4c4;
+display:block;
+margin:auto;
+color:#510c7e;
+height:50px;
+width:150px;
+border:1px solid #26d4c4;
+border-radius: 8px;
+`
 function toDDHHMMSS (sec_num)  {
     var days    = Math.floor(sec_num / 86400)
     var hours   = Math.floor((sec_num-days*86400) / 3600);
@@ -64,14 +76,14 @@ function LoveFarm({ ethersConnect }) {
               {!ethersConnect.tokenApproved &&
               <>
                 <br/><br/>
-                <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleApprove(ethersConnect)}}>Approve</Button>
+                <Stylebutton onClick={()=>{handleApprove(ethersConnect)}}>Approve</Stylebutton>
                 <p>Call Approve once before staking.</p> <br/>
               </>
               }
               {(secondsToLaunch <= 0) && <>
-                <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleStake(ethersConnect)}}>Stake</Button>
+                <Stylebutton  onClick={()=>{handleStake(ethersConnect)}}>Stake</Stylebutton>
                 <p>available: {ethersConnect.balanceLoveLP} Love/Eth Uni LP</p> <br/>
-                <Button style={{display:"block", margin:"auto"}} onClick={()=>{handleClaim(ethersConnect)}}>Claim</Button>
+                <Stylebutton  onClick={()=>{handleClaim(ethersConnect)}}>Claim</Stylebutton>
                 <p>available: {ethersConnect.balanceLoveFarmEarned} Love</p> <br/>
                 </>}
           </Container>

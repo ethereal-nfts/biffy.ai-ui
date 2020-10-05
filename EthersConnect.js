@@ -24,17 +24,10 @@ class EthersConnect{
     this.addressLoveLP = config.addressLoveLP
     this.contractLoveLP = new ethers.Contract(config.addressLoveLP,abiIERC20,this.provider)
 
-    this.loadProvider = this.loadProvider.bind(this)
-    this.setProviderListeners = this.setProviderListeners.bind(this)
-    this.delProviderListeners = this.delProviderListeners.bind(this)
-    this.loadWeb3.bind = this.loadWeb3.bind(this)
-    this.reloadEthersConnect.bind = this.reloadEthersConnect.bind(this)
-    this.loadWalletInfo.bind = this.loadWalletInfo.bind(this)
-
     this.uniTokenLove = new Token(ChainId.MAINNET, this.addressLove, 18)
   }
 
-  reloadEthersConnect(){
+  reloadEthersConnect = () => {
     let promise
     if(this.isEnabled){
       promise = this.loadWeb3().then(()=>{
@@ -56,7 +49,7 @@ class EthersConnect{
     return promise
   }
 
-  loadProvider(){
+  loadProvider = () => {
     let promiseArray = []
     this.delProviderListeners()
     if(this.isEnabled){
@@ -70,7 +63,7 @@ class EthersConnect{
     })
   }
 
-  loadWalletInfo(){
+  loadWalletInfo = () => {
     if(!this.nextWalletUpdate) this.nextWalletUpdate = Date.now() - 1
     if(this.isEnabled && this.nextWalletUpdate < Date.now()) {
       this.nextWalletUpdate = Date.now() + 20*1000 //rate limit
@@ -115,14 +108,14 @@ class EthersConnect{
     }
   }
 
-  setProviderListeners(){
+  setProviderListeners = () => {
     if(this.isEnabled){
       this.provider.on(this.account,(bal)=>{
         this.balance = this.formatToEthString(bal,5)
       })
     }
   }
-  delProviderListeners(){
+  delProviderListeners = () => {
     this.provider.removeAllListeners(this.account)
   }
 
@@ -143,7 +136,7 @@ class EthersConnect{
     return parseFloat(utils.formatEther(weiBN)).toFixed(decimals)
   }
 
-  loadWeb3(){
+  loadWeb3 = () => {
     let promise = Promise.resolve()
     if(this.isEthereumBrowserDetected){
       if(window.ethereum){

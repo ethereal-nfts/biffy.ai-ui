@@ -106,7 +106,7 @@ class EthersConnect{
       ]).then((results)=>{
         const pair = results[0]
         this.priceLoveLPUsd = (pair.tokenAmounts[0].toSignificant(12)*2/this.loveLPTotalSupply)*this.priceEthUsd.toFixed(2)
-        const allowance = results[8];
+        const allowance = results[9];
         this.allowance = this.formatToEthString((allowance),5)
         this.tokenApproved = this.formatToEthString((allowance),5) !== this.formatToEthString(0,5);
       })

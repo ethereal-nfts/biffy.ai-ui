@@ -18,6 +18,7 @@ class EthersConnect{
       etherscan: "NW15ZFMRMUHPPJW3KDKYGY7T6PIKICPZYH",
       infura: "7306d5cb07f9488ca72e21d22079f93e"
     })
+    this.tokenApproved = null;
 
     this.addressLove = config.addressLove
     this.contractLove = new ethers.Contract(config.addressLove,abiBiffysLove,this.provider)
@@ -100,10 +101,14 @@ class EthersConnect{
         this.contractLoveLP.totalSupply().then((bal)=>{
           this.loveLPTotalSupplyWei = bal
           this.loveLPTotalSupply = this.formatToEthString((bal),5)
-        })
+        }),
+        this.contractLoveLP.allowance(this.account, this.addressLoveFarm),
       ]).then((results)=>{
         const pair = results[0]
         this.priceLoveLPUsd = (pair.tokenAmounts[0].toSignificant(12)*2/this.loveLPTotalSupply)*this.priceEthUsd.toFixed(2)
+        const allowance = results[9];
+        this.allowance = this.formatToEthString((allowance),5)
+        this.tokenApproved = this.formatToEthString((allowance),5) !== this.formatToEthString(0,5);
       })
     } else {
       return Promise.resolve()

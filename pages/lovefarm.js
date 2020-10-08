@@ -6,14 +6,23 @@ import styled from 'styled-components'
 
 
 const Stylebutton = styled.button`
-background:#26d4c4;
+background:#510c7e;
 display:block;
 margin:auto;
-color:#510c7e;
+color:#fff;
 height:50px;
 width:150px;
-border:1px solid #26d4c4;
-border-radius: 8px;
+border:8px solid #fb8cb9;
+border-radius: 25px;
+font-size: 18px;
+text-transform: uppercase;
+font-family: pixelade;
+cursor: pointer;
+margin-top:15px;
+&:hover{
+  background:darkgray;
+  border-color:lightgray;
+}
 `
 function toDDHHMMSS (sec_num)  {
     var days    = Math.floor(sec_num / 86400)
@@ -64,7 +73,7 @@ function LoveFarm({ ethersConnect }) {
           <a>Go Home</a>
         </Link>
         <h1>Biffy's<br/>Love Farm</h1>
-        <p>Stake LP, earn Love forever.</p>
+        <p >Stake LP, earn Love forever.</p>
       </section>
       {(secondsToLaunch > 0) && <>
         <p>Love Farm starts in: {toDDHHMMSS(secondsToLaunch)}</p>
@@ -72,11 +81,10 @@ function LoveFarm({ ethersConnect }) {
       {!ethersConnect && <p>loading... 2s</p>}
       {ethersConnect &&
         <>
-          <Container style={{width:"100%", textAlign:"center"}}>
+          <Container style={{width:"100%", textAlign:"center", marginTop:"30px"}}>
               {!ethersConnect.tokenApproved &&
               <>
-                <br/><br/>
-                <Stylebutton onClick={()=>{handleApprove(ethersConnect)}}>Approve</Stylebutton>
+                <Stylebutton marginTop="20px" onClick={()=>{handleApprove(ethersConnect)}}>Approve</Stylebutton>
                 <p>Call Approve once before staking.</p> <br/>
               </>
               }

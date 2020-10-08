@@ -13,6 +13,7 @@
     "next-fonts": "^1.4.0",
     "path-match": "^1.2.4",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.2.0"
   }
 }

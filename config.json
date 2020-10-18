@@ -2,5 +2,7 @@
   "network": "homestead",
   "addressLove": "0xf7f35fe2ede3addee7cf176f4ef20d9436e498dc",
   "addressLoveFarm": "0x1F3032035804369B609ADBF43100C497CD33e1F1",
-  "addressLoveLP": "0xe97bFF521Dae652a1Bb107e2212907642c5A4AC4"
+  "addressLoveLP": "0xe97bFF521Dae652a1Bb107e2212907642c5A4AC4",
+  "addressPortraits": "0x536de6625b1ea87c4e2d9c4c51a765be4267e5a9",
+  "addressPortraitAuction": "0xA8A9C582A75C8aF8FbA785b99b0332132A3B98E4"
 }

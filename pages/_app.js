@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }) {
             setEthersConnect(ethersConnect)
           })
         },
-        2000
+        30000
       )
     })
     return (interval)=>clearInterval(interval)

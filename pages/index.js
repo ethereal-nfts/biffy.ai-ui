@@ -9,9 +9,11 @@ function HomePage() {
       <Link href="/lovefarm">
         <a>Love Farm</a>
       </Link>
+      <Link href="/artiststatement">
+        <a>Artist Statement</a>
+      </Link>
       <a href="https://uniswap.info/pair/0xe97bFF521Dae652a1Bb107e2212907642c5A4AC4">Uniswap</a>
       <a href="https://t.me/biffyai">Telegram</a>
-      <a href="https://github.com/ethereal-nfts/biffy.ai-contracts">Github</a>
     </section>
   </div>
   )

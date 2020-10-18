@@ -8,6 +8,11 @@ export default function MyApp({ Component, pageProps }) {
     const ethersConnect = new EthersConnect()
     let interval = 0
     ethersConnect.loadWeb3().then((ethersConnect)=>{
+      (()=>{
+        ethersConnect.reloadEthersConnect().then((ethersConnect)=>{
+          setEthersConnect(ethersConnect)
+        })
+      })()
       interval = setInterval(
         ()=>{
           ethersConnect.reloadEthersConnect().then((ethersConnect)=>{

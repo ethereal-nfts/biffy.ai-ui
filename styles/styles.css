@@ -84,7 +84,18 @@ p{
   margin-bottom:15px;
 
 }
+.artist-statement p{
+  font-family:sans-serif;
+  line-height: initial;
+}
+.artist-statement a{
+  font-family:sans-serif;
+  line-height: initial;
+}
 a{
+  color:#fff;
+}
+.centered-background-love a{
   font-size: 36px;
   display:block;
   color:#fff;

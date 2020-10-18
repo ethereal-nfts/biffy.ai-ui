@@ -4,7 +4,9 @@ import { ChainId, Token, WETH, Fetcher, Route } from '@uniswap/sdk'
 
 import abiBiffysLove from './abi/BiffysLove.abi'
 import abiBiffysLoveFarm from './abi/BiffysLoveFarm.abi'
+import abiBiffysPortraitAuction from './abi/BiffysPortraitAuction.abi'
 import abiIERC20 from './abi/IERC20.abi'
+import abiIERC721 from './abi/IERC721.abi'
 const config = require('./config.json');
 
 class EthersConnect{
@@ -13,7 +15,8 @@ class EthersConnect{
     this.isEthereumBrowserDetected = (window.ethereum || window.web3)
     this.expectedNetwork = config.network
     this.network = config.network
-    this.provider = new ethers.getDefaultProvider(config.network)
+    if(window.web3 && window.web3.currentProvider) this.provider = new ethers.providers.Web3Provider(window.web3.currentProvider)
+    if(window.ethereum) this.provider = new ethers.providers.Web3Provider(window.ethereum)
     this.tokenApproved = null;
 
     this.addressLove = config.addressLove
@@ -22,6 +25,10 @@ class EthersConnect{
     this.contractLoveFarm = new ethers.Contract(config.addressLoveFarm,abiBiffysLoveFarm,this.provider)
     this.addressLoveLP = config.addressLoveLP
     this.contractLoveLP = new ethers.Contract(config.addressLoveLP,abiIERC20,this.provider)
+    this.addressPortraits = config.addressPortraits
+    this.contractPortraits = new ethers.Contract(config.addressPortraits,abiIERC721,this.provider)
+    this.addressPortraitAuction = config.addressPortraitAuction
+    this.contractPortraitAuction = new ethers.Contract(config.addressPortraitAuction,abiBiffysPortraitAuction,this.provider)
 
     this.uniTokenLove = new Token(ChainId.MAINNET, this.addressLove, 18)
   }
@@ -105,6 +112,15 @@ class EthersConnect{
         const allowance = results[9];
         this.allowance = this.formatToEthString((allowance),5)
         this.tokenApproved = this.formatToEthString((allowance),5) !== this.formatToEthString(0,5);
+      }),
+      this.contractPortraitAuction.auctionNonce().then((nonce)=>{
+        this.auctionNonce = nonce.toString()
+        return Promise.all(
+          Array.from({length: this.auctionNonce}, (x,i) => this.contractPortraitAuction.getAuction(i+1))
+        )
+      }).then((vals)=>{
+        console.log(vals)
+        this.auctions = vals;
       })
     } else {
       return Promise.resolve()

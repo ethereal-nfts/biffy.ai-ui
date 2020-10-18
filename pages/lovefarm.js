@@ -1,29 +1,9 @@
 import Link from 'next/link'
-import EthereumNotices from "../components/EthereumNotices"
 import React, {useState, useEffect } from 'react'
 import {Button, Container} from 'bloomer'
-import styled from 'styled-components'
+import FancyButton from '../components/styled/FancyButton'
+import WalletInfo from '../components/WalletInfo'
 
-
-const Stylebutton = styled.button`
-background:#510c7e;
-display:block;
-margin:auto;
-color:#fff;
-height:50px;
-width:150px;
-border:8px solid #fb8cb9;
-border-radius: 25px;
-font-size: 18px;
-text-transform: uppercase;
-font-family: pixelade;
-cursor: pointer;
-margin-top:15px;
-&:hover{
-  background:darkgray;
-  border-color:lightgray;
-}
-`
 function toDDHHMMSS (sec_num)  {
     var days    = Math.floor(sec_num / 86400)
     var hours   = Math.floor((sec_num-days*86400) / 3600);
@@ -58,7 +38,7 @@ function handleClaim(ethersConnect){
   contractWithSigner.getReward()
 }
 
-function LoveFarm({ ethersConnect }) {
+export default function LoveFarm({ ethersConnect }) {
   const [secondsToLaunch, setSecondsToLaunch] = useState(1601701200 - Math.floor(Date.now()/1000))
   useEffect(()=>{
     let interval = setInterval(()=>{
@@ -84,44 +64,18 @@ function LoveFarm({ ethersConnect }) {
           <Container style={{width:"100%", textAlign:"center", marginTop:"30px"}}>
               {!ethersConnect.tokenApproved &&
               <>
-                <Stylebutton marginTop="20px" onClick={()=>{handleApprove(ethersConnect)}}>Approve</Stylebutton>
+                <FancyButton marginTop="20px" onClick={()=>{handleApprove(ethersConnect)}}>Approve</FancyButton>
                 <p>Call Approve once before staking.</p> <br/>
               </>
               }
               {(secondsToLaunch <= 0) && <>
-                <Stylebutton  onClick={()=>{handleStake(ethersConnect)}}>Stake</Stylebutton>
+                <FancyButton  onClick={()=>{handleStake(ethersConnect)}}>Stake</FancyButton>
                 <p>available: {ethersConnect.balanceLoveLP} Love/Eth Uni LP</p> <br/>
-                <Stylebutton  onClick={()=>{handleClaim(ethersConnect)}}>Claim</Stylebutton>
+                <FancyButton  onClick={()=>{handleClaim(ethersConnect)}}>Claim</FancyButton>
                 <p>available: {ethersConnect.balanceLoveFarmEarned} Love</p> <br/>
                 </>}
           </Container>
-          <h2>wallet info</h2>
-          <EthereumNotices ethersConnect={ethersConnect} />
-          {ethersConnect.isEnabled &&
-            <Container className="has-text-left" style={{fontFamily: 'monospace', width:"100%"}}>
-              <p style={{width:"100%", overflow:"hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>Account: {ethersConnect.account}</p>
-              <p style={{width:"100%"}}>Network: {ethersConnect.network} {ethersConnect.network === ethersConnect.expectedNetwork ? '✓' : '✗'}</p>
-              <p style={{width:"100%"}}>Balance ETH: {ethersConnect.balance}</p>
-              <p style={{width:"100%"}}>Balance LOVE: {ethersConnect.balanceLove}</p>
-              <p style={{width:"100%"}}>Balance LOVE LP: {ethersConnect.balanceLoveLP}</p>
-              <p style={{width:"100%"}}>Balance Love Farm: {ethersConnect.balanceLoveFarm}
-                {
-                  (Number(ethersConnect.loveFarmTotalSupply)>0) ?
-                  " ("+((Number(ethersConnect.balanceLoveFarm)/(Number(ethersConnect.loveFarmTotalSupply))*100).toFixed(3)) + "%)"
-                 :
-                "0%"
-                 }
-              </p>
-              <p style={{width:"100%"}}>Projected Daily Love Reward:
-                {
-                  (Number(ethersConnect.loveFarmTotalSupply)>0) ?
-                  " "+(Number(ethersConnect.loveFarmRewardRate)*Number(ethersConnect.balanceLoveFarm)/(Number(ethersConnect.loveFarmTotalSupply))).toFixed(5)
-                 :
-                "0"
-                 }
-              </p>
-            </Container>
-          }
+          <WalletInfo ethersConnect={ethersConnect} />
           <h2>farm info</h2>
           <Container className="has-text-left" style={{fontFamily: 'monospace', width:"100%"}}>
             <p style={{width:"100%"}}>LOVE LP: {ethersConnect.loveFarmTotalSupply}</p>
@@ -135,5 +89,3 @@ function LoveFarm({ ethersConnect }) {
     </div>
   )
 }
-
-export default LoveFarm

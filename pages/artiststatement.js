@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-function HomePage() {
+export default function ArtistStatement() {
   return(
     <div className="background-rect artist-statement">
       <section>
@@ -46,5 +46,3 @@ function HomePage() {
     </div>
   )
 }
-
-export default HomePage

@@ -95,10 +95,12 @@ p{
 a{
   color:#fff;
 }
+a:hover{
+  color:#aaa;
+}
 .centered-background-love a{
-  font-size: 36px;
+  font-size: 28px;
   display:block;
-  color:#fff;
   width:100%;
 }
 @media only screen and (max-width: 480px) {
@@ -107,16 +109,21 @@ a{
   }
   h1{
     font-size:36px;
-    margin-top:50px;
+    margin-top:30px;
   }
-  a{
-    font-size:20px;
+  .centered-background-love h1{
+    font-size:36px;
+    margin-top:40px;
   }
-  p{
+  .centered-background-love a{
     font-size:16px;
+    line-height: 16px;
+  }
+  .centered-background-love p{
+    font-size:14px;
     line-height: 12px;
     margin-top: 5px;
-    margin-bottom:20px;
+    margin-bottom:5px;
   }
   .centered-background-love p{
     width:150px;

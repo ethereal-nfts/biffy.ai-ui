@@ -106,21 +106,23 @@ class EthersConnect{
           this.loveLPTotalSupply = this.formatToEthString((bal),5)
         }),
         this.contractLoveLP.allowance(this.account, this.addressLoveFarm),
+        this.contractLove.allowance(this.account, this.addressPortraitAuction).then((allowance)=>{
+          this.auctionTokenApproved = allowance.gte(BigNumber.from("100000000000000000000000000000"))
+        }),
+        this.contractPortraitAuction.auctionNonce().then((nonce)=>{
+          this.auctionNonce = nonce.toString()
+          return Promise.all(
+            Array.from({length: this.auctionNonce}, (x,i) => this.contractPortraitAuction.getAuction(i))
+          )
+        }).then((vals)=>{
+          this.auctions = vals;
+        })
       ]).then((results)=>{
         const pair = results[0]
         this.priceLoveLPUsd = (pair.tokenAmounts[0].toSignificant(12)*2/this.loveLPTotalSupply)*this.priceEthUsd.toFixed(2)
         const allowance = results[9];
         this.allowance = this.formatToEthString((allowance),5)
-        this.tokenApproved = this.formatToEthString((allowance),5) !== this.formatToEthString(0,5);
-      }),
-      this.contractPortraitAuction.auctionNonce().then((nonce)=>{
-        this.auctionNonce = nonce.toString()
-        return Promise.all(
-          Array.from({length: this.auctionNonce}, (x,i) => this.contractPortraitAuction.getAuction(i+1))
-        )
-      }).then((vals)=>{
-        console.log(vals)
-        this.auctions = vals;
+        this.tokenApproved = allowance.gte(BigNumber.from("100000000000000000000000000000"))
       })
     } else {
       return Promise.resolve()

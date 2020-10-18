@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-function HomePage() {
+export default function HomePage() {
   return(
   <div className="centered-background centered-background-love">
     <section>
@@ -9,8 +9,11 @@ function HomePage() {
       <Link href="/lovefarm">
         <a>Love Farm</a>
       </Link>
+      <Link href="/auctions">
+        <a>Auctions</a>
+      </Link>
       <Link href="/artiststatement">
-        <a>Artist Statement</a>
+        <a>Statement</a>
       </Link>
       <a href="https://uniswap.info/pair/0xe97bFF521Dae652a1Bb107e2212907642c5A4AC4">Uniswap</a>
       <a href="https://t.me/biffyai">Telegram</a>
@@ -18,5 +21,3 @@ function HomePage() {
   </div>
   )
 }
-
-export default HomePage

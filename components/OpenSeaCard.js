@@ -1,10 +1,11 @@
 import styled from 'styled-components'
+import {ethers, utils, BigNumber} from 'ethers'
 const axios = require('axios').default;
 import { useState, useEffect } from 'react';
 
 const Card = styled.div`
   text-align:left;
-  height:380px;
+  height:385px;
   padding:20px;
   border-radius: 16px;
   background: #510c7e;
@@ -75,6 +76,15 @@ const CardDescription = styled.p`
   font-weight:normal;
 `
 
+function handleBid(ethersConnect,auctionId,amountWeiBN){
+  console.log(amountWeiBN.toString())
+  console.log(auctionId.toString())
+  let signer = ethersConnect.provider.getSigner()
+  let contract = ethersConnect.contractPortraitAuction
+  let contractWithSigner = contract.connect(signer)
+  contractWithSigner.depositAndBid(auctionId,amountWeiBN.toString())
+}
+
 function toDDHHMMSS (sec_num)  {
   var days    = Math.floor(sec_num / 86400)
   var hours   = Math.floor((sec_num-days*86400) / 3600);
@@ -97,6 +107,9 @@ export default function OpenSeaCard({address,tokenId, ethersConnect}) {
   const [secondsToEnd, setsecondsToEnd] = useState()
   const [isEnded, setIsEnded] = useState(false)
   const [isStarted, setIsStarted] = useState(false)
+  const [minBid, setMinBid] = useState(utils.parseEther("1.1231"))
+
+  const [bidAmountEther, setBidAmountEther] = useState(1)
 
   useEffect(()=>{
     (async () =>{
@@ -111,14 +124,24 @@ export default function OpenSeaCard({address,tokenId, ethersConnect}) {
 
   useEffect(()=>{
     if(ethersConnect) {
-      console.log(ethersConnect.auctions)
-      setAuction(ethersConnect.auctions[ethersConnect.auctions.length - tokenId])
+      const auctionId = ethersConnect.auctions.length - tokenId
+      const auction = {...ethersConnect.auctions[auctionId],auctionId:auctionId}
+      setAuction(auction)
+      if(auction.lastBid.eq(BigNumber.from("0"))){
+        setMinBid(auction.startingBid)
+      } else {
+        setMinBid(
+          auction.lastBid
+          .mul(auction.minIncreaseBP)
+          .div(BigNumber.from("10000"))
+          .add(auction.lastBid)
+        )
+      }
     }
   },[ethersConnect])
 
   useEffect(()=>{
     if(auction) {
-      console.log(auction)
       let interval = setInterval(()=>{
         const toStart = auction.startTime - Math.floor(Date.now()/1000)
         const toEnd = auction.endTime - Math.floor(Date.now()/1000)
@@ -146,6 +169,21 @@ export default function OpenSeaCard({address,tokenId, ethersConnect}) {
             <CardDescription>{cardData.description}</CardDescription>
             {(!isStarted && secondsToStart) &&
               <p>Bidding starts in: {toDDHHMMSS(secondsToStart)}</p>
+            }
+            {(isStarted && secondsToStart) &&
+              <p>Bidding ends in: {toDDHHMMSS(secondsToEnd)}</p>
+            }
+            {(isStarted && secondsToStart) &&
+              <>
+                Amount: <input 
+                  type="number" 
+                  min={utils.formatEther(minBid)}
+                  onChange={e => setBidAmountEther(e.target.value)} 
+                />
+                <button 
+                  onClick={()=>{handleBid(ethersConnect,auction.auctionId,utils.parseEther(bidAmountEther.toString()))}}>Bid</button>
+                <p>Min Bid: {utils.formatEther(minBid)} Love</p>
+              </>
             }
           </>
         </Card>

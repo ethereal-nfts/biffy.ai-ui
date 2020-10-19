@@ -189,7 +189,7 @@ export default function OpenSeaCard({address,tokenId,auctionId,ethersConnect}) {
                 <CardDescription>
                   Bidding ends in: {toDDHHMMSS(secondsToEnd)}<br/>
                   Min Bid: {utils.formatEther(minBid)} Love
-                  <br/>Last Bidder: {auction.artist}
+                  <br/>Last Bidder: {auction.lastBidder}
                 </CardDescription>
               </>
             }

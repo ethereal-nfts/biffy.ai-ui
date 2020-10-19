@@ -12,6 +12,12 @@ function handleApprove(ethersConnect){
   contractWithSigner.approve(ethersConnect.addressPortraitAuction,"1000000000000000000000000000000")
 }
 
+function handleWithdraw(ethersConnect){
+  let signer = ethersConnect.provider.getSigner()
+  let contract = ethersConnect.contractPortraitAuction
+  let contractWithSigner = contract.connect(signer)
+  contractWithSigner.withdrawAll()
+}
 
 export default function Auctions({ ethersConnect }) {
   const [addressPortraits, setAddressPortraits] = useState()
@@ -41,6 +47,10 @@ export default function Auctions({ ethersConnect }) {
                 <p>Call Approve once before bidding.</p> <br/>
               </>
               }
+              <>
+                <FancyButton marginTop="20px" onClick={()=>{handleWithdraw(ethersConnect)}}>Withdraw</FancyButton>
+                <p>Withdraws all your Love from inactive bids. 5% burn fee.</p> <br/>
+              </>
           </Container>
           {(addressPortraits && auctionNonce) &&
             <OpenSeaCard address={addressPortraits} tokenId={1} auctionId={0} ethersConnect={ethersConnect} />

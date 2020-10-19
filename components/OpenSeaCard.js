@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 const Card = styled.div`
   text-align:left;
-  height:385px;
+  height:440px;
   padding:20px;
   border-radius: 16px;
   background: #510c7e;
@@ -77,12 +77,17 @@ const CardDescription = styled.p`
 `
 
 function handleBid(ethersConnect,auctionId,amountWeiBN){
-  console.log(amountWeiBN.toString())
-  console.log(auctionId.toString())
   let signer = ethersConnect.provider.getSigner()
   let contract = ethersConnect.contractPortraitAuction
   let contractWithSigner = contract.connect(signer)
   contractWithSigner.depositAndBid(auctionId,amountWeiBN.toString())
+}
+
+function handleClaim(ethersConnect,auctionId){
+  let signer = ethersConnect.provider.getSigner()
+  let contract = ethersConnect.contractPortraitAuction
+  let contractWithSigner = contract.connect(signer)
+  contractWithSigner.claimPortrait(auctionId)
 }
 
 function toDDHHMMSS (sec_num)  {
@@ -97,7 +102,7 @@ function toDDHHMMSS (sec_num)  {
   if (seconds < 10) {seconds = "0"+seconds;}
   return days+":"+hours+':'+minutes+':'+seconds;
 }
-export default function OpenSeaCard({address,tokenId, ethersConnect}) {
+export default function OpenSeaCard({address,tokenId,auctionId,ethersConnect}) {
 
 
   const [cardData, setCardData] = useState(null)
@@ -124,8 +129,7 @@ export default function OpenSeaCard({address,tokenId, ethersConnect}) {
 
   useEffect(()=>{
     if(ethersConnect) {
-      const auctionId = ethersConnect.auctions.length - tokenId
-      const auction = {...ethersConnect.auctions[auctionId],auctionId:auctionId}
+      const auction = ethersConnect.auctions[auctionId]
       setAuction(auction)
       if(auction.lastBid.eq(BigNumber.from("0"))){
         setMinBid(auction.startingBid)
@@ -170,21 +174,31 @@ export default function OpenSeaCard({address,tokenId, ethersConnect}) {
             {(!isStarted && secondsToStart) &&
               <p>Bidding starts in: {toDDHHMMSS(secondsToStart)}</p>
             }
-            {(isStarted && secondsToStart) &&
-              <p>Bidding ends in: {toDDHHMMSS(secondsToEnd)}</p>
-            }
-            {(isStarted && secondsToStart) &&
+            {(isStarted && secondsToStart && !isEnded) &&
               <>
+                <br/>
                 Amount: <input 
                   type="number" 
                   min={utils.formatEther(minBid)}
                   onChange={e => setBidAmountEther(e.target.value)} 
                 />
+                <br/>
                 <button 
-                  onClick={()=>{handleBid(ethersConnect,auction.auctionId,utils.parseEther(bidAmountEther.toString()))}}>Bid</button>
-                <p>Min Bid: {utils.formatEther(minBid)} Love</p>
+                  onClick={()=>{handleBid(ethersConnect,auctionId,utils.parseEther(bidAmountEther.toString()))}}>Bid</button>
+                <br/><br/>
+                <CardDescription>
+                  Bidding ends in: {toDDHHMMSS(secondsToEnd)}<br/>
+                  Min Bid: {utils.formatEther(minBid)} Love
+                  <br/>Last Bidder: {auction.artist}
+                </CardDescription>
               </>
             }
+            {isEnded &&
+            <>
+              <br/>Winner: {auction.artist}
+              <button 
+              onClick={()=>{handleClaim(ethersConnect,auctionId)}}>Bid</button>
+            </>}
           </>
         </Card>
       }

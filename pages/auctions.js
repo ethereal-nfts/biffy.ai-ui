@@ -13,7 +13,7 @@ function handleApprove(ethersConnect){
 }
 
 
-export default function Portraits({ ethersConnect }) {
+export default function Auctions({ ethersConnect }) {
   const [addressPortraits, setAddressPortraits] = useState()
   const [auctionNonce, setAuctionNonce] = useState()
   useEffect(()=>{
@@ -43,7 +43,7 @@ export default function Portraits({ ethersConnect }) {
               }
           </Container>
           {(addressPortraits && auctionNonce) &&
-            <OpenSeaCard address={addressPortraits} tokenId={auctionNonce} ethersConnect={ethersConnect} />
+            <OpenSeaCard address={addressPortraits} tokenId={1} auctionId={0} ethersConnect={ethersConnect} />
           }
           <WalletInfo ethersConnect={ethersConnect} />
         </>

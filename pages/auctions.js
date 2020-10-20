@@ -1,3 +1,4 @@
+import styled from 'styled-components'
 import Link from 'next/link'
 import {Container} from 'bloomer'
 import React, {useState, useEffect } from 'react'
@@ -19,6 +20,13 @@ function handleWithdraw(ethersConnect){
   contractWithSigner.withdrawAll()
 }
 
+const AuctionDescription = styled.ul`
+  text-align:left;
+  margin-left:auto;
+  margin-right:auto;
+  max-width:300px;
+`
+
 export default function Auctions({ ethersConnect }) {
   const [addressPortraits, setAddressPortraits] = useState()
   const [auctionNonce, setAuctionNonce] = useState()
@@ -37,6 +45,14 @@ export default function Auctions({ ethersConnect }) {
       </section>
       <h1>Portrait Auctions</h1>
       <p><a href="https://opensea.io/assets/biffys-portraits">Portraits On OpenSea</a></p>
+      <p>How it works:</p>
+      <AuctionDescription>
+        <li>Bid at least min bid. Transfers Love from your wallet.</li>
+        <li>Bidding resets timer to 24 hours.</li>
+        <li>When outbid, your previous bid goes to balance and is applied to your new bids for any Portrait.</li>
+        <li>You can withdraw your balance for 5% burn fee.</li>
+        <li>When you win an auction, call Claim Portrait to receive the Portrait.</li>
+      </AuctionDescription>
       {!ethersConnect && <p>loading... 2s</p>}
       {ethersConnect &&
         <>
@@ -49,7 +65,7 @@ export default function Auctions({ ethersConnect }) {
               }
               <>
                 <FancyButton marginTop="20px" onClick={()=>{handleWithdraw(ethersConnect)}}>Withdraw</FancyButton>
-                <p>Withdraws your {ethersConnect.loveAuctionBalance} Love from inactive bids. 5% burn fee. You can also use this Love to place a new bid.</p> <br/>
+                <p>Withdraws your {ethersConnect.loveAuctionBalance} Love for 5% burn fee.</p> <br/>
               </>
           </Container>
           {(addressPortraits && auctionNonce) &&

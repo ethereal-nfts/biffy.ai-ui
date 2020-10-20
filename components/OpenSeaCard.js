@@ -197,9 +197,15 @@ export default function OpenSeaCard({address,tokenId,auctionId,ethersConnect}) {
             }
             {isEnded &&
             <>
-              <br/>Winner: {auction.artist}
-              <button 
-              onClick={()=>{handleClaim(ethersConnect,auctionId)}}>Bid</button>
+              <br/>
+              <CardDescription>
+              Winner: {auction.lastBidder}
+              </CardDescription>
+              {!auction.isClaimed && (
+                <button 
+                onClick={()=>{handleClaim(ethersConnect,auctionId)}}>Claim</button>
+              )}
+
             </>}
           </>
         </Card>

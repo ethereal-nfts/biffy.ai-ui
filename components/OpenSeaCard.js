@@ -81,7 +81,7 @@ function handleBid(ethersConnect,auctionId,amountWeiBN){
   let contract = ethersConnect.contractPortraitAuction
   let contractWithSigner = contract.connect(signer)
   contractWithSigner.depositAndBid(auctionId,amountWeiBN.toString(),{
-    gasLimit:"120000"
+    gasLimit:"200000"
   })
 }
 

@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { faTelegramPlane, faGithub, faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function HomePage() {
   return(
@@ -16,7 +18,11 @@ export default function HomePage() {
         <a>Statement</a>
       </Link>
       <a href="https://uniswap.info/pair/0xe97bFF521Dae652a1Bb107e2212907642c5A4AC4">Uniswap</a>
-      <a href="https://t.me/biffyai">Telegram</a>
+      <br/>
+      <a className="icon" href="https://t.me/biffyai"><FontAwesomeIcon icon={faTelegramPlane} /></a>
+      <a className="icon" href="https://twitter.com/BiffyAi"><FontAwesomeIcon icon={faTwitter} /></a>
+      <a className="icon" href="https://discord.gg/4g6wDhR"><FontAwesomeIcon icon={faDiscord} /></a>
+      <a className="icon" href="https://github.com/ethereal-nfts/biffy.ai-contracts"><FontAwesomeIcon icon={faGithub} /></a>
     </section>
   </div>
   )

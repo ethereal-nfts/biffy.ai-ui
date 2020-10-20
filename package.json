@@ -5,6 +5,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "@uniswap/sdk": "^3.0.3",
     "axios": "^0.20.0",
     "bloomer": "^0.6.5",
@@ -14,6 +19,7 @@
     "path-match": "^1.2.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-fontawesome": "^1.7.1",
     "styled-components": "^5.2.0"
   }
 }

@@ -103,6 +103,11 @@ a:hover{
   display:block;
   width:100%;
 }
+.centered-background-love a.icon{
+  display: inline-block;
+  width: initial;
+  margin: 5px;
+}
 @media only screen and (max-width: 480px) {
   .centered-background-love section{
     top:-5%;

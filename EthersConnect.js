@@ -116,6 +116,9 @@ class EthersConnect{
           )
         }).then((vals)=>{
           this.auctions = vals;
+        }),
+        this.contractPortraitAuction.loveBalances(this.account).then((bal)=>{
+          this.loveAuctionBalance = this.formatToEthString((bal),5)
         })
       ]).then((results)=>{
         const pair = results[0]

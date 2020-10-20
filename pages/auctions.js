@@ -49,7 +49,7 @@ export default function Auctions({ ethersConnect }) {
               }
               <>
                 <FancyButton marginTop="20px" onClick={()=>{handleWithdraw(ethersConnect)}}>Withdraw</FancyButton>
-                <p>Withdraws all your Love from inactive bids. 5% burn fee.</p> <br/>
+                <p>Withdraws your {ethersConnect.loveAuctionBalance} Love from inactive bids. 5% burn fee. You can also use this Love to place a new bid.</p> <br/>
               </>
           </Container>
           {(addressPortraits && auctionNonce) &&

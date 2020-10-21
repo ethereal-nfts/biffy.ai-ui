@@ -69,7 +69,10 @@ export default function Auctions({ ethersConnect }) {
               </>
           </Container>
           {(addressPortraits && auctionNonce) &&
-            <OpenSeaCard address={addressPortraits} tokenId={1} auctionId={0} ethersConnect={ethersConnect} />
+            <Container display="flex" justifyContent="center">
+              <OpenSeaCard address={addressPortraits} tokenId={1} auctionId={0} ethersConnect={ethersConnect} />
+              <OpenSeaCard address={addressPortraits} tokenId={2} auctionId={1} ethersConnect={ethersConnect} />
+            </Container>
           }
           <WalletInfo ethersConnect={ethersConnect} />
         </>

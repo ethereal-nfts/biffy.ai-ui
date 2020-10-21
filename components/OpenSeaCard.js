@@ -13,6 +13,7 @@ const Card = styled.div`
              -10px -10px 12px #5d0e91;
   position:relative;
   display:inline-block;
+  margin:20px;
 `
 const CardImageContainer = styled.div`
   width:200px;

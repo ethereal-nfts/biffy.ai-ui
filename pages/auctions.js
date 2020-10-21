@@ -26,7 +26,10 @@ const AuctionDescription = styled.ul`
   margin-right:auto;
   max-width:300px;
 `
-
+const AuctionCardsContainer = styled.div`
+  display:flex;
+  justify-content:center;
+`
 export default function Auctions({ ethersConnect }) {
   const [addressPortraits, setAddressPortraits] = useState()
   const [auctionNonce, setAuctionNonce] = useState()
@@ -69,10 +72,10 @@ export default function Auctions({ ethersConnect }) {
               </>
           </Container>
           {(addressPortraits && auctionNonce) &&
-            <Container display="flex" justifyContent="center">
+            <AuctionCardsContainer>
               <OpenSeaCard address={addressPortraits} tokenId={1} auctionId={0} ethersConnect={ethersConnect} />
               <OpenSeaCard address={addressPortraits} tokenId={2} auctionId={1} ethersConnect={ethersConnect} />
-            </Container>
+            </AuctionCardsContainer>
           }
           <WalletInfo ethersConnect={ethersConnect} />
         </>

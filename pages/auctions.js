@@ -29,6 +29,7 @@ const AuctionDescription = styled.ul`
 const AuctionCardsContainer = styled.div`
   display:flex;
   justify-content:center;
+  flex-wrap:wrap;
 `
 export default function Auctions({ ethersConnect }) {
   const [addressPortraits, setAddressPortraits] = useState()

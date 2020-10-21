@@ -38,8 +38,10 @@ const CardImageShadowOverlay = styled.div`
 const CardImage = styled.img`
   display:block;
   border:solid 16px #510c7e;
-  width:168px;
-  height:168px;
+  width: auto;
+  height: 168px;
+  margin-left: auto;
+  margin-right: auto;
 `
 const CardTitle = styled.h2`
   margin:0px;

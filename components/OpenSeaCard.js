@@ -124,7 +124,6 @@ export default function OpenSeaCard({address,tokenId,auctionId,ethersConnect}) {
   useEffect(()=>{
     (async () =>{
       const openSeaAsset = await axios.get(`https://api.opensea.io/api/v1/asset/${address}/${tokenId}/`).catch((err)=>{
-        console.log("err",err)
         return {data:{hasData: false}}
       })
       openSeaAsset.data.hasData = true;
@@ -156,7 +155,9 @@ export default function OpenSeaCard({address,tokenId,auctionId,ethersConnect}) {
         const toEnd = auction.endTime - Math.floor(Date.now()/1000)
         setSecondsToStart(toStart)
         setsecondsToEnd(toEnd)
-        if(toEnd < 1 && toStart > 0) setIsEnded(true)
+        console.log("toend",toEnd)
+        console.log("toStart",toStart)
+        if(toEnd < 1 && toStart < 1) setIsEnded(true)
         if(toStart < 1) setIsStarted(true)
       },1000)
       return (interval)=>clearInterval(interval)

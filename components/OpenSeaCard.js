@@ -150,13 +150,12 @@ export default function OpenSeaCard({address,tokenId,auctionId,ethersConnect}) {
 
   useEffect(()=>{
     if(auction) {
+      console.log(auctionId.toString() == "1")
       let interval = setInterval(()=>{
         const toStart = auction.startTime - Math.floor(Date.now()/1000)
         const toEnd = auction.endTime - Math.floor(Date.now()/1000)
         setSecondsToStart(toStart)
         setsecondsToEnd(toEnd)
-        console.log("toend",toEnd)
-        console.log("toStart",toStart)
         if(toEnd < 1 && toStart < 1) setIsEnded(true)
         if(toStart < 1) setIsStarted(true)
       },1000)
@@ -206,7 +205,7 @@ export default function OpenSeaCard({address,tokenId,auctionId,ethersConnect}) {
               <CardDescription>
               Winner: {auction.lastBidder}
               </CardDescription>
-              {!auction.isClaimed && (
+              {(!auction.isClaimed && (auctionId.toString() != "1")) && (
                 <button 
                 onClick={()=>{handleClaim(ethersConnect,auctionId)}}>Claim</button>
               )}

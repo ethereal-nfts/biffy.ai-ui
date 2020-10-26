@@ -150,7 +150,6 @@ export default function OpenSeaCard({address,tokenId,auctionId,ethersConnect}) {
 
   useEffect(()=>{
     if(auction) {
-      console.log(auctionId.toString() == "1")
       let interval = setInterval(()=>{
         const toStart = auction.startTime - Math.floor(Date.now()/1000)
         const toEnd = auction.endTime - Math.floor(Date.now()/1000)

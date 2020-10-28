@@ -15,8 +15,10 @@ class EthersConnect{
     this.isEthereumBrowserDetected = (window.ethereum || window.web3)
     this.expectedNetwork = config.network
     this.network = config.network
-    if(window.web3 && window.web3.currentProvider) this.provider = new ethers.providers.Web3Provider(window.web3.currentProvider)
-    if(window.ethereum) this.provider = new ethers.providers.Web3Provider(window.ethereum)
+    console.log("Has web3?",!!window.web3 && !!window.web3.currentProvider)
+    console.log("has window.ethereum?",!!window.ethereum)
+    if(!!window.web3 && !!window.web3.currentProvider) this.provider = new ethers.providers.Web3Provider(window.web3.currentProvider)
+    if(!!window.ethereum) this.provider = new ethers.providers.Web3Provider(window.ethereum)
     this.tokenApproved = null;
 
     this.addressLove = config.addressLove

@@ -73,8 +73,10 @@ class EthersConnect{
   }
 
   loadWalletInfo = () => {
+    console.log("Loadding wallet info...")
     if(!this.nextWalletUpdate) this.nextWalletUpdate = Date.now() - 1
     if(this.isEnabled && this.nextWalletUpdate < Date.now()) {
+      console.log("running next wallet update...")
       this.nextWalletUpdate = Date.now() + 20*1000 //rate limit
       return Promise.all([
         Fetcher.fetchPairData(this.uniTokenLove, WETH[this.uniTokenLove.chainId]).then((pair)=>{
@@ -130,6 +132,9 @@ class EthersConnect{
         const allowance = results[9];
         this.allowance = this.formatToEthString((allowance),5)
         this.tokenApproved = allowance.gte(BigNumber.from("100000000000000000000000000000"))
+      }).catch((err)=>{
+        console.log("results error:")
+        console.log(err)
       })
     } else {
       return Promise.resolve()

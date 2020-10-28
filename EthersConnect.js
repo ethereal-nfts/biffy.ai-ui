@@ -19,6 +19,7 @@ class EthersConnect{
     console.log("has window.ethereum?",!!window.ethereum)
     if(!!window.web3 && !!window.web3.currentProvider) this.provider = new ethers.providers.Web3Provider(window.web3.currentProvider)
     if(!!window.ethereum) this.provider = new ethers.providers.Web3Provider(window.ethereum)
+    
     this.tokenApproved = null;
 
     this.addressLove = config.addressLove
@@ -164,19 +165,26 @@ class EthersConnect{
 
   loadWeb3 = () => {
     let promise = Promise.resolve()
+    console.log("Loading web3")
     if(this.isEthereumBrowserDetected){
       if(window.ethereum){
-        promise = window.ethereum.enable().then(()=>{
+        if(window.ethereum.enable) {
+          promise = window.ethereum.enable().then(()=>{
+            this.provider = new ethers.providers.Web3Provider(window.ethereum)
+          })
+        } else {
           this.provider = new ethers.providers.Web3Provider(window.ethereum)
-        })
+        }
       }else if(window.web3 && window.web3.currentProvider){
         this.provider = new ethers.providers.Web3Provider(window.web3.currentProvider)
       }
       promise = promise.then(()=>{
+        console.log("provider",this.provider.connection.url)
         this.isEnabled = true
         this.signer = this.provider.getSigner()
         return this.signer.getAddress()
       }).then((addr)=>{
+        console.log("address",addr)
         this.account = addr
       })
     }

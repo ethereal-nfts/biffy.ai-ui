@@ -124,6 +124,7 @@ class EthersConnect{
           this.loveAuctionBalance = this.formatToEthString((bal),5)
         })
       ]).then((results)=>{
+        console.log("Results from query count",results.length)
         const pair = results[0]
         this.priceLoveLPUsd = (pair.tokenAmounts[0].toSignificant(12)*2/this.loveLPTotalSupply)*this.priceEthUsd.toFixed(2)
         const allowance = results[9];

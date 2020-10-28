@@ -10,13 +10,17 @@ export default function MyApp({ Component, pageProps }) {
     ethersConnect.loadWeb3().then((ethersConnect)=>{
       (()=>{
         ethersConnect.reloadEthersConnect().then((ethersConnect)=>{
-          setEthersConnect(ethersConnect)
+          if(!!ethersConnect) {
+            setEthersConnect(ethersConnect)
+          }
         })
       })()
       interval = setInterval(
         ()=>{
           ethersConnect.reloadEthersConnect().then((ethersConnect)=>{
-            setEthersConnect(ethersConnect)
+            if(!!ethersConnect) {
+              setEthersConnect(ethersConnect)
+            }
           })
         },
         30000

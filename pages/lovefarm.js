@@ -59,7 +59,7 @@ export default function LoveFarm({ ethersConnect }) {
         <p>Love Farm starts in: {toDDHHMMSS(secondsToLaunch)}</p>
       </>}
       {!ethersConnect && <p>loading... 2s</p>}
-      {ethersConnect &&
+      {!!ethersConnect &&
         <>
           <Container style={{width:"100%", textAlign:"center", marginTop:"30px"}}>
               {!ethersConnect.tokenApproved &&

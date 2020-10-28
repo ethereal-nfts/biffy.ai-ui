@@ -35,7 +35,8 @@ export default function Auctions({ ethersConnect }) {
   const [addressPortraits, setAddressPortraits] = useState()
   const [auctionNonce, setAuctionNonce] = useState()
   useEffect(()=>{
-    if(ethersConnect) {
+    console.log("Has ethersconnect",!!ethersConnect)
+    if(!!ethersConnect) {
       setAddressPortraits(ethersConnect.addressPortraits)
       setAuctionNonce(ethersConnect.auctionNonce)
     }
@@ -58,7 +59,7 @@ export default function Auctions({ ethersConnect }) {
         <li>When you win an auction, call Claim Portrait to receive the Portrait.</li>
       </AuctionDescription>
       {!ethersConnect && <p>loading... 2s</p>}
-      {ethersConnect &&
+      {!!ethersConnect &&
         <>
           <Container style={{width:"100%", textAlign:"center", marginTop:"30px"}}>
               {!ethersConnect.auctionTokenApproved &&

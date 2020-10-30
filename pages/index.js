@@ -14,6 +14,9 @@ export default function HomePage() {
       <Link href="/auctions">
         <a>Auctions</a>
       </Link>
+      <Link href="/gallery">
+        <a>Art Gallery</a>
+      </Link>
       <Link href="/artiststatement">
         <a>Statement</a>
       </Link>
